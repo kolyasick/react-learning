@@ -1,13 +1,13 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import type { CartProduct, Product, ProductCategory, ProductFilters } from "./types/product.ts";
-import Header from "./components/Header.tsx";
-import Hero from "./components/Hero.tsx";
+import Header from "./components/main-page/Header.tsx";
+import Hero from "./components/main-page/Hero.tsx";
 import Filters from "./components/Filters.tsx";
-import Footer from "./components/Footer.tsx";
+import Footer from "./components/main-page/Footer.tsx";
 import { Loader } from "./components/icons/Loader.tsx";
 import ProductCard from "./components/ProductCard.tsx";
-import Cart from "./components/Cart.tsx";
+import Cart from "./components/cart/Cart.tsx";
 
 function App() {
   const categories: ProductCategory[] = ["Аксессуары", "Наушники", "Планшеты", "Смартфоны", "Ноутбуки", "Игровые консоли"];
@@ -116,7 +116,7 @@ function App() {
     }
   };
 
-  const deleteFromCart = (product: CartProduct, isTotal: boolean) => {
+  const deleteFromCart = (product: CartProduct | Product, isTotal: boolean) => {
     if (isTotal) {
       setCart((prev) => prev.filter((p) => p.id !== product.id));
     } else {
@@ -125,7 +125,7 @@ function App() {
   };
   return (
     <div className="min-h-screen bg-gray-50">
-      <Header searchQuery={filters.searchQuery!} handleSearchChange={handleSearchChange} openCart={setIsCartOpen} />
+      <Header searchQuery={filters.searchQuery!} handleSearchChange={handleSearchChange} openCart={setIsCartOpen} cartLength={cart.length} />
       <main>
         <Hero />
         <div className="container mx-auto px-4 py-8">
@@ -151,7 +151,13 @@ function App() {
               ) : filteredProducts().length > 0 ? (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-6">
                   {filteredProducts().map((product) => (
-                    <ProductCard key={product.id} product={product} getProductQty={getProductQty} addToCart={addToCart} />
+                    <ProductCard
+                      key={product.id}
+                      product={product}
+                      getProductQty={getProductQty}
+                      addToCart={addToCart}
+                      deleteFromCart={deleteFromCart}
+                    />
                   ))}
                 </div>
               ) : (

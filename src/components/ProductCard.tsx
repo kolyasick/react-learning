@@ -1,13 +1,17 @@
+import { useState } from "react";
 import type { Product } from "../types/product";
 import { formatCurrency } from "../utils/formatCurrency";
 
 interface Props {
   product: Product;
   addToCart: (product: Product, initial?: boolean) => void;
+  deleteFromCart: (p: Product, isTotal: boolean) => void;
+
   getProductQty: (p: Product) => number;
 }
 
-const ProductCard: React.FC<Props> = ({ product, getProductQty, addToCart }) => {
+const ProductCard: React.FC<Props> = ({ product, getProductQty, addToCart, deleteFromCart }) => {
+  const [featureLimit, setFeatureLimit] = useState(2);
   const renderRatingStars = (rating: number) => {
     const stars = [];
     const fullStars = Math.floor(rating);
@@ -67,12 +71,19 @@ const ProductCard: React.FC<Props> = ({ product, getProductQty, addToCart }) => 
         </div>
 
         <div className="flex flex-wrap gap-1 mb-4">
-          {product.features.slice(0, 2).map((feature, index) => (
+          {product.features.slice(0, featureLimit).map((feature, index) => (
             <span key={index} className="bg-gray-100 text-gray-700 px-2 py-1 rounded text-xs">
               {feature}
             </span>
           ))}
-          {product.features.length > 2 && <span className="bg-gray-100 text-gray-700 px-2 py-1 rounded text-xs">+{product.features.length - 2}</span>}
+          {product.features.length > featureLimit && (
+            <span
+              onClick={() => setFeatureLimit(product.features.length)}
+              className="bg-gray-100 text-gray-700 px-2 py-1 rounded text-xs cursor-pointer"
+            >
+              +{product.features.length - 2}
+            </span>
+          )}
         </div>
 
         <div className="flex items-center justify-between">
@@ -83,7 +94,12 @@ const ProductCard: React.FC<Props> = ({ product, getProductQty, addToCart }) => 
 
           {getProductQty(product) ? (
             <div className="flex items-center border border-gray-300 rounded-lg">
-              <button className="w-8 h-8 flex items-center justify-center text-gray-600 hover:bg-gray-100">−</button>
+              <button
+                onClick={() => deleteFromCart(product, false)}
+                className="w-8 h-8 flex items-center justify-center text-gray-600 hover:bg-gray-100"
+              >
+                −
+              </button>
               <span className="w-8 text-center text-sm">{getProductQty(product)}</span>
               <button onClick={() => addToCart(product, false)} className="w-8 h-8 flex items-center justify-center text-gray-600 hover:bg-gray-100">
                 +

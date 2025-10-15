@@ -1,5 +1,5 @@
-import type { CartProduct as CP, Product } from "../types/product";
-import { formatCurrency } from "../utils/formatCurrency";
+import type { CartProduct as CP, Product } from "../../types/product";
+import { formatCurrency } from "../../utils/formatCurrency";
 import CartProduct from "./CartProduct";
 
 type Props = {

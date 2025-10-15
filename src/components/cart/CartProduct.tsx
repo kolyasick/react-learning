@@ -1,5 +1,5 @@
-import type { CartProduct as CP, Product } from "../types/product";
-import { formatCurrency } from "../utils/formatCurrency";
+import type { CartProduct as CP, Product } from "../../types/product";
+import { formatCurrency } from "../../utils/formatCurrency";
 
 type Props = {
   product: CP;
@@ -8,7 +8,6 @@ type Props = {
 };
 
 const CartProduct: React.FC<Props> = ({ product, deleteFromCart, addToCart }) => {
- 
   return (
     <div className="flex gap-4 pb-4 border-b border-gray-100">
       <div className="w-16 h-16 bg-gray-200 rounded-lg flex-shrink-0 overflow-hidden">
