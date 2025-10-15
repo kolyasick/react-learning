@@ -16,7 +16,6 @@ export interface Product {
   brand: string;
 }
 
-
 export interface ProductFilters {
   category?: ProductCategory | "all";
   searchQuery?: string;
@@ -25,4 +24,8 @@ export interface ProductFilters {
   inStock?: boolean;
   minRating?: number;
   brands?: string[];
+}
+
+export interface CartProduct extends Product {
+  qty: number;
 }

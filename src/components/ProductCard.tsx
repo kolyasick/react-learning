@@ -1,15 +1,17 @@
 import type { Product } from "../types/product";
+import { formatCurrency } from "../utils/formatCurrency";
 
 interface Props {
   product: Product;
+  addToCart: (product: Product, initial?: boolean) => void;
+  getProductQty: (p: Product) => number;
 }
 
-const ProductCard: React.FC<Props> = ({ product }) => {
+const ProductCard: React.FC<Props> = ({ product, getProductQty, addToCart }) => {
   const renderRatingStars = (rating: number) => {
     const stars = [];
     const fullStars = Math.floor(rating);
     const partialStar = rating - fullStars;
-    console.log(partialStar)
 
     for (let i = 0; i < fullStars; i++) {
       stars.push(
@@ -20,7 +22,6 @@ const ProductCard: React.FC<Props> = ({ product }) => {
     }
 
     if (partialStar > 0) {
-      const clipPathId = `partial-star-${product.id}`;
       stars.push(
         <div key="partial" className="relative">
           <svg className="w-4 h-4 text-gray-300" fill="currentColor" viewBox="0 0 20 20">
@@ -76,21 +77,34 @@ const ProductCard: React.FC<Props> = ({ product }) => {
 
         <div className="flex items-center justify-between">
           <div>
-            <span className="text-2xl font-bold text-gray-900">${product.price}</span>
+            <span className="text-2xl font-bold text-gray-900">{formatCurrency(product.price)}</span>
             <span className="text-gray-600 ml-1">{product.currency}</span>
           </div>
 
-          <button className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-semibold transition-colors duration-200 flex items-center space-x-1">
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
-              />
-            </svg>
-            <span>Купить</span>
-          </button>
+          {getProductQty(product) ? (
+            <div className="flex items-center border border-gray-300 rounded-lg">
+              <button className="w-8 h-8 flex items-center justify-center text-gray-600 hover:bg-gray-100">−</button>
+              <span className="w-8 text-center text-sm">{getProductQty(product)}</span>
+              <button onClick={() => addToCart(product, false)} className="w-8 h-8 flex items-center justify-center text-gray-600 hover:bg-gray-100">
+                +
+              </button>
+            </div>
+          ) : (
+            <button
+              onClick={() => addToCart(product)}
+              className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-semibold transition-colors duration-200 flex items-center space-x-1"
+            >
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
+                />
+              </svg>
+              <span>Купить</span>
+            </button>
+          )}
         </div>
       </div>
     </div>
