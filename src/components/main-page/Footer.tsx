@@ -4,8 +4,7 @@ const Footer = () => {
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div>
-            <h4 className="text-lg font-semibold mb-4">AudioStore</h4>
-            <p className="text-gray-400">Лучшие аудио-решения для настоящих ценителей звука</p>
+            <h4 className="text-lg font-semibold mb-4">TechStore</h4>
           </div>
           <div>
             <h4 className="text-lg font-semibold mb-4">Магазин</h4>

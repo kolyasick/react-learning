@@ -7,11 +7,11 @@ type Props = {
   addToCart: (product: Product, initial: boolean) => void;
 };
 
-const CartProduct: React.FC<Props> = ({ product, deleteFromCart, addToCart }) => {
+const CartItem: React.FC<Props> = ({ product, deleteFromCart, addToCart }) => {
   return (
     <div className="flex gap-4 pb-4 border-b border-gray-100">
       <div className="w-16 h-16 bg-gray-200 rounded-lg flex-shrink-0 overflow-hidden">
-        <img src={product.image} alt={product.name} className="w-full h-full object-cover" />
+        <img src={"/products/" + product.image} alt={product.name} className="w-full h-full object-cover" />
       </div>
       <div className="flex-1 min-w-0">
         <h3 className="font-medium text-gray-900 truncate">{product.name}</h3>
@@ -46,4 +46,4 @@ const CartProduct: React.FC<Props> = ({ product, deleteFromCart, addToCart }) =>
   );
 };
 
-export default CartProduct;
+export default CartItem;

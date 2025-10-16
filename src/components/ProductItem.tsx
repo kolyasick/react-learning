@@ -1,6 +1,7 @@
 import { useState } from "react";
 import type { Product } from "../types/product";
 import { formatCurrency } from "../utils/formatCurrency";
+import { Link } from "react-router";
 
 interface Props {
   product: Product;
@@ -10,7 +11,7 @@ interface Props {
   getProductQty: (p: Product) => number;
 }
 
-const ProductCard: React.FC<Props> = ({ product, getProductQty, addToCart, deleteFromCart }) => {
+const ProductItem: React.FC<Props> = ({ product, getProductQty, addToCart, deleteFromCart }) => {
   const [featureLimit, setFeatureLimit] = useState(2);
   const renderRatingStars = (rating: number) => {
     const stars = [];
@@ -45,8 +46,12 @@ const ProductCard: React.FC<Props> = ({ product, getProductQty, addToCart, delet
 
   return (
     <div className="bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden group">
-      <div className="relative overflow-hidden">
-        <img src={product.image} alt={product.name} className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300" />
+      <Link to={"/product/" + product.id} className="relative overflow-hidden block">
+        <img
+          src={"/products/" + product.image}
+          alt={product.name}
+          className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
+        />
         {product.inStock ? (
           <div className="absolute top-3 left-3 bg-green-500 text-white px-2 py-1 rounded-full text-xs font-semibold">В наличии</div>
         ) : (
@@ -54,7 +59,7 @@ const ProductCard: React.FC<Props> = ({ product, getProductQty, addToCart, delet
         )}
 
         <div className="absolute top-3 right-3 bg-blue-600 text-white px-2 py-1 rounded-full text-xs font-semibold">{product.brand}</div>
-      </div>
+      </Link>
 
       <div className="p-4">
         <span className="text-xs text-gray-500 uppercase tracking-wide">{product.category}</span>
@@ -127,4 +132,4 @@ const ProductCard: React.FC<Props> = ({ product, getProductQty, addToCart, delet
   );
 };
 
-export default ProductCard;
+export default ProductItem;
