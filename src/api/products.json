@@ -11,7 +11,8 @@
     "rating": 4.8,
     "reviews": 1247,
     "features": ["5G", "Face ID", "120Hz дисплей", "Титан"],
-    "brand": "Apple"
+    "brand": "Apple",
+    "reviewList": []
   },
   {
     "id": 2,
@@ -25,7 +26,8 @@
     "rating": 4.6,
     "reviews": 892,
     "features": ["5G", "Snapdragon 8 Gen 2", "120Hz AMOLED"],
-    "brand": "Samsung"
+    "brand": "Samsung",
+    "reviewList": []
   },
   {
     "id": 3,
@@ -39,7 +41,8 @@
     "rating": 4.9,
     "reviews": 567,
     "features": ["13.6\" дисплей", "18 часов работы", "8GB RAM", "256GB SSD"],
-    "brand": "Apple"
+    "brand": "Apple",
+    "reviewList": []
   },
   {
     "id": 4,
@@ -53,7 +56,8 @@
     "rating": 4.7,
     "reviews": 2341,
     "features": ["Шумоподавление", "30 часов работы", "Сенсорное управление"],
-    "brand": "Sony"
+    "brand": "Sony",
+    "reviewList": []
   },
   {
     "id": 5,
@@ -67,7 +71,8 @@
     "rating": 4.5,
     "reviews": 678,
     "features": ["10.9\" дисплей", "Support Apple Pencil", "5G"],
-    "brand": "Apple"
+    "brand": "Apple",
+    "reviewList": []
   },
   {
     "id": 6,
@@ -81,7 +86,8 @@
     "rating": 4.8,
     "reviews": 1890,
     "features": ["4K Gaming", "SSD", "DualSense контроллер"],
-    "brand": "Sony"
+    "brand": "Sony",
+    "reviewList": []
   },
   {
     "id": 7,
@@ -95,7 +101,8 @@
     "rating": 4.4,
     "reviews": 445,
     "features": ["13.4\" дисплей", "Intel i7", "16GB RAM", "512GB SSD"],
-    "brand": "Dell"
+    "brand": "Dell",
+    "reviewList": []
   },
   {
     "id": 8,
@@ -109,7 +116,8 @@
     "rating": 4.6,
     "reviews": 1567,
     "features": ["Шумоподавление", "Пространственное аудио", "6 часов работы"],
-    "brand": "Apple"
+    "brand": "Apple",
+    "reviewList": []
   },
   {
     "id": 9,
@@ -123,7 +131,8 @@
     "rating": 4.7,
     "reviews": 892,
     "features": ["ЭКГ", "GPS", "Водонепроницаемость", "Always-On дисплей"],
-    "brand": "Apple"
+    "brand": "Apple",
+    "reviewList": []
   },
   {
     "id": 10,
@@ -137,7 +146,8 @@
     "rating": 4.6,
     "reviews": 1563,
     "features": ["OLED дисплей", "HD Rumble", "Portable режим"],
-    "brand": "Nintendo"
+    "brand": "Nintendo",
+    "reviewList": []
   },
   {
     "id": 11,
@@ -151,7 +161,8 @@
     "rating": 4.8,
     "reviews": 423,
     "features": ["20 МП", "4K видео", "Стабилизация", "Wi-Fi"],
-    "brand": "Canon"
+    "brand": "Canon",
+    "reviewList": []
   },
   {
     "id": 12,
@@ -165,6 +176,7 @@
     "rating": 4.5,
     "reviews": 987,
     "features": ["Шумоподавление", "22 часа работы", "Quick Charge"],
-    "brand": "Bose"
+    "brand": "Bose",
+    "reviewList": []
   }
 ]

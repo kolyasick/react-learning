@@ -1,5 +1,10 @@
 type Currency = "USD" | "EUR" | "RUB" | "UAH";
 export type ProductCategory = "Смартфоны" | "Ноутбуки" | "Наушники" | "Планшеты" | "Игровые консоли" | "Аксессуары";
+export type Review = {
+  text: string;
+  email: string;
+  rating: number;
+};
 
 export interface Product {
   id: number;
@@ -14,6 +19,7 @@ export interface Product {
   reviews: number;
   features: string[];
   brand: string;
+  reviewList?: Review[];
 }
 
 export interface ProductFilters {

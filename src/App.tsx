@@ -2,11 +2,8 @@ import { useState } from "react";
 import type { CartProduct, Product, ProductFilters } from "./types/product.ts";
 import Header from "./components/main-page/Header.tsx";
 import Hero from "./components/main-page/Hero.tsx";
-
 import Footer from "./components/main-page/Footer.tsx";
-
 import Cart from "./components/cart/Cart.tsx";
-
 import { Route, Routes } from "react-router";
 import ProductPage from "./pages/ProductPage.tsx";
 import IndexPage from "./pages/IndexPage.tsx";

@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import { useProduct } from "../hooks/useProduct";
 import { useParams } from "react-router";
-import type { Product } from "../types/product";
+import type { Product, Review } from "../types/product";
 import { CheckIcon, ShieldCheckIcon } from "@heroicons/react/24/solid";
+import ProductReviews from "../components/review/ProductReviews";
 
 type Props = {
   addToCart: (product: Product, initial?: boolean) => void;
@@ -16,7 +17,6 @@ const ProductPage: React.FC<Props> = ({ addToCart, deleteFromCart, getProductQty
   const { id } = useParams<{ id: string }>();
 
   useEffect(() => {
-    console.log(123);
     if (products.length > 0 && id) {
       const foundProduct = products.find((p) => p.id === Number(id));
       if (foundProduct) {
@@ -65,6 +65,12 @@ const ProductPage: React.FC<Props> = ({ addToCart, deleteFromCart, getProductQty
     }
 
     return stars;
+  };
+
+  const addReview = (data: Review) => {
+    if (!data || Object.values(data).some((f) => !f)) return;
+    product.reviewList?.push(data);
+    setProduct({ ...product, reviews: product.reviews + 1 });
   };
 
   return (
@@ -229,30 +235,20 @@ const ProductPage: React.FC<Props> = ({ addToCart, deleteFromCart, getProductQty
           </div>
         </div>
 
-        <div className="mt-8 grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div className="mt-8 grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
           <div className="lg:col-span-2 bg-white rounded-2xl shadow-sm p-6">
             <h2 className="text-2xl font-bold text-gray-900 mb-6">Specifications</h2>
             <div className="space-y-4">
               {product.features.map((feature, index) => (
                 <div key={index} className="flex justify-between py-3 border-b border-gray-100">
-                  <span className="font-medium text-gray-600">{index + 1}.</span>
+                  <span className="font-medium text-gray-500">{index + 1}.</span>
                   <span className="text-gray-900">{feature}</span>
                 </div>
               ))}
             </div>
           </div>
 
-          <div className="bg-white rounded-2xl shadow-sm p-6">
-            <h2 className="text-2xl font-bold text-gray-900 mb-6">Customer Reviews</h2>
-            <div className="text-center">
-              <div className="flex justify-center items-center mb-4">{renderRatingStars(product.rating)}</div>
-              <div className="text-4xl font-bold text-gray-900 mb-2">{product.rating}/5</div>
-              <div className="text-gray-600 mb-4">Based on {product.reviews} reviews</div>
-              <button className="w-full py-3 bg-gray-100 text-gray-700 rounded-lg font-medium hover:bg-gray-200 transition-colors">
-                Write a Review
-              </button>
-            </div>
-          </div>
+          <ProductReviews product={product} renderRatingStars={renderRatingStars} addReview={addReview} />
         </div>
       </div>
     </div>
