@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import type { CartProduct as CP, Product } from "../../types/product";
 import { formatCurrency } from "../../utils/formatCurrency";
 import CartProduct from "./CartItem";
@@ -40,9 +40,9 @@ const Cart: React.FC<Props> = ({ closeCart, cart, deleteFromCart, addToCart }) =
     return (totalAmount() * discount) / 100;
   };
 
-  const totalQty = () => {
+  const totalQty = useMemo(() => {
     return cart.reduce((acc, p) => acc + p.qty, 0);
-  };
+  }, [cart]);
 
   return (
     <>
@@ -58,7 +58,7 @@ const Cart: React.FC<Props> = ({ closeCart, cart, deleteFromCart, addToCart }) =
             </button>
           </div>
           <p className="text-gray-500 text-sm mt-1">
-            {totalQty()} товара на сумму {formatCurrency(totalAmount())}
+            {totalQty} товара на сумму {formatCurrency(totalAmount())}
           </p>
         </div>
         <div className="flex-1 overflow-y-auto p-6 space-y-4">
@@ -85,7 +85,7 @@ const Cart: React.FC<Props> = ({ closeCart, cart, deleteFromCart, addToCart }) =
         <div className="p-6 border-t border-gray-200 bg-gray-50">
           <div className="space-y-3 mb-6">
             <div className="flex justify-between text-sm">
-              <span className="text-gray-600">Товары ({totalQty()})</span>
+              <span className="text-gray-600">Товары ({totalQty})</span>
               <span className="text-gray-900">{formatCurrency(totalAmount())}</span>
             </div>
             <div className="flex justify-between text-sm">
