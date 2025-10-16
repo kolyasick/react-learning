@@ -1,4 +1,4 @@
-import type { Product, Review } from "../../types/product";
+import type { Product, Review } from "../../../types/product";
 import { useState, type JSX } from "react";
 import ReviewForm from "./ReviewForm";
 import ReviewItem from "./ReviewItem";
@@ -6,7 +6,7 @@ import ReviewItem from "./ReviewItem";
 type Props = {
   product: Product;
   renderRatingStars: (raiting: number) => JSX.Element[];
-  addReview: (data: Review) => void
+  addReview: (data: Review) => void;
 };
 
 const ProductReviews: React.FC<Props> = ({ product, renderRatingStars, addReview }) => {

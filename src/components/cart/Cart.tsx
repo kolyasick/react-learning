@@ -1,3 +1,4 @@
+import { useState } from "react";
 import type { CartProduct as CP, Product } from "../../types/product";
 import { formatCurrency } from "../../utils/formatCurrency";
 import CartProduct from "./CartItem";
@@ -10,8 +11,33 @@ type Props = {
 };
 
 const Cart: React.FC<Props> = ({ closeCart, cart, deleteFromCart, addToCart }) => {
+  const promos = [
+    {
+      code: "SALE25",
+      discount: 25,
+    },
+    {
+      code: "SUPER10",
+      discount: 10,
+    },
+  ];
+
+  const [promoCode, setPromoCode] = useState("");
+  const [discount, setDiscount] = useState(0);
+
+  const applyPromo = () => {
+    if (!promoCode.trim()) return;
+
+    const promo = promos.find((p) => p.code === promoCode);
+    if (promo) setDiscount(promo.discount);
+  };
+
   const totalAmount = () => {
     return Math.floor(cart.reduce((acc, p) => acc + p.price * p.qty, 0));
+  };
+
+  const totalDiscount = () => {
+    return (totalAmount() * discount) / 100;
   };
 
   const totalQty = () => {
@@ -41,14 +67,18 @@ const Cart: React.FC<Props> = ({ closeCart, cart, deleteFromCart, addToCart }) =
           ))}
         </div>
 
-        <div className="p-6 border-t border-gray-200">
+        <div className={`p-6 border-t border-gray-200 ${totalDiscount() ? "opacity-60 pointer-events-none" : ""}`}>
           <div className="flex gap-2 mb-4">
             <input
               type="text"
+              value={promoCode}
+              onChange={(e) => setPromoCode(e.target.value)}
               placeholder="Промокод"
               className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             />
-            <button className="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors font-medium">Применить</button>
+            <button onClick={applyPromo} className="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors font-medium">
+              Применить
+            </button>
           </div>
         </div>
 
@@ -60,7 +90,7 @@ const Cart: React.FC<Props> = ({ closeCart, cart, deleteFromCart, addToCart }) =
             </div>
             <div className="flex justify-between text-sm">
               <span className="text-gray-600">Скидка</span>
-              <span className="text-green-600">−0 $</span>
+              <span className="text-green-600">−{formatCurrency(totalDiscount())} </span>
             </div>
             <div className="flex justify-between text-sm">
               <span className="text-gray-600">Доставка</span>
@@ -70,7 +100,7 @@ const Cart: React.FC<Props> = ({ closeCart, cart, deleteFromCart, addToCart }) =
 
           <div className="flex justify-between items-center mb-6 pt-4 border-t border-gray-200">
             <span className="text-lg font-bold text-gray-900">Итого</span>
-            <span className="text-2xl font-bold text-gray-900">{formatCurrency(totalAmount())}</span>
+            <span className="text-2xl font-bold text-gray-900">{formatCurrency(totalAmount() - totalDiscount())}</span>
           </div>
 
           <button className="w-full bg-blue-600 text-white py-4 rounded-lg hover:bg-blue-700 transition-colors font-semibold text-lg shadow-lg">

@@ -3,7 +3,8 @@ import { useProduct } from "../hooks/useProduct";
 import { useParams } from "react-router";
 import type { Product, Review } from "../types/product";
 import { CheckIcon, ShieldCheckIcon } from "@heroicons/react/24/solid";
-import ProductReviews from "../components/review/ProductReviews";
+import ProductReviews from "../components/product/review/ProductReviews";
+import { formatCurrency } from "../utils/formatCurrency";
 
 type Props = {
   addToCart: (product: Product, initial?: boolean) => void;
@@ -121,9 +122,7 @@ const ProductPage: React.FC<Props> = ({ addToCart, deleteFromCart, getProductQty
               </div>
 
               <div className="flex items-center space-x-4">
-                <span className="text-4xl font-bold text-gray-900">
-                  {product.currency} {product.price}
-                </span>
+                <span className="text-4xl font-bold text-gray-900">{formatCurrency(product.price)}</span>
                 {product.inStock ? (
                   <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-800">
                     <CheckIcon className="w-4 h-4 mr-1" />

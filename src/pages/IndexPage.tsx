@@ -2,7 +2,7 @@ import { useProduct } from "../hooks/useProduct";
 import type { CartProduct, Product, ProductCategory, ProductFilters } from "../types/product";
 import Filters from "../components/Filters";
 import { Loader } from "../components/icons/Loader";
-import ProductItem from "../components/ProductItem";
+import ProductItem from "../components/product/ProductItem";
 
 type Props = {
   filters: ProductFilters;

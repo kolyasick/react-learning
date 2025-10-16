@@ -1,6 +1,6 @@
 import { useState } from "react";
-import type { Product } from "../types/product";
-import { formatCurrency } from "../utils/formatCurrency";
+import type { Product } from "../../types/product";
+import { formatCurrency } from "../../utils/formatCurrency";
 import { Link } from "react-router";
 
 interface Props {
